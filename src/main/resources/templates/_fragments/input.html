@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>入力フィールドの部品</title>
+</head>
+<body>
+
+<!--入力フィールドの部品（input）-->
+<div th:fragment="macro(type,field,label,placeholder,errortag)"
+     class="field is-horizontal">
+
+    <div class="field-label is-normal">
+        <label th:text="${label}" class="label">ラベル</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <div class="control">
+                <input class="input"
+                       th:type="${type}"
+                       th:field="*{__${field}__}"
+                       th:placeholder="${placeholder}"/>
+                <p th:if="${#fields.hasErrors('__${field}__')}"
+                        th:errors="*{__${field}__}"
+                        th:replace="${errortag}">
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

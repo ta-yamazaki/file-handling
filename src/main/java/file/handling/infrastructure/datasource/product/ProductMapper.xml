@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="file.handling.infrastructure.datasource.product.ProductMapper">
+    <select id="list" resultType="file.handling.domain.model.product.Product">
+        SELECT
+            商品ID AS "productId.value",
+            商品番号 AS "number",
+            商品名称 AS "name",
+            画像パス AS "fileName"
+        FROM 商品.商品
+        ORDER BY 商品番号
+    </select>
+
+    <select id="productOf" resultType="file.handling.domain.model.product.Product">
+        SELECT
+            商品ID AS "productId.value",
+            商品番号 AS "number",
+            商品名称 AS "name",
+            画像パス AS "fileName"
+        FROM 商品.商品
+        WHERE 商品.商品ID = #{productId.value}
+    </select>
+
+    <insert id="registerNew">
+        INSERT INTO 商品.商品
+            (商品ID, 商品名称, 画像パス)
+        VALUES
+            (
+                #{productId.value},
+                #{product.name},
+                #{product.fileName}
+            )
+    </insert>
+
+    <insert id="register">
+        INSERT INTO 商品.商品
+            (商品ID, 商品番号, 商品名称, 画像パス)
+        VALUES
+            (
+                #{productId.value},
+                #{product.number},
+                #{product.name},
+                #{product.fileName}
+            )
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM 商品.商品
+        WHERE 商品.商品ID = #{productId.value}
+    </delete>
+</mapper>

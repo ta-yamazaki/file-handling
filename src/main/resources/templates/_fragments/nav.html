@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>荷主ナビゲーション</title>
+</head>
+<body>
+    <nav class="navbar" th:fragment="nav">
+        <div class="navbar-brand">
+            <img th:src="@{/images/lorry-b.jpg}" width="120" height="80"/>
+            <p class="navbar-item">
+                <span class="tag is-large">ケミくる</span>
+            </p>
+        </div>
+
+        <div class="navbar-start">
+            <a class="navbar-item" th:href="@{/shipper}">取次依頼の一覧</a>
+<!--            <a class="navbar-item" th:href="@{/shipper/destinations}">仕向地の追加</a>-->
+<!--            <a class="navbar-item" th:href="@{/shipper/origins}">荷積地の追加</a>-->
+<!--            <a class="navbar-item" th:href="@{/shipper/contact}">連絡先の変更</a>-->
+        </div>
+        <div class="navbar-end">
+<!--            <a class="navbar-item" th:href="@{/}">トップに戻る</a>-->
+            <a class="navbar-item" id="logout" href="#" th:replace="_fragments/logout :: nav-logout">ログアウト</a>
+        </div>
+    </nav>
+</body>
+</html>

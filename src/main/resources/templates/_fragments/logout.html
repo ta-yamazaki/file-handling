@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<a class="navbar-item" id="logout" href="#" th:fragment="nav-logout">ログアウト
+  <form id="logOutForm" th:action="@{/logout}" method="post">
+  </form>
+  <script>
+    document.getElementById('logout').addEventListener('click', () => {
+      document.getElementById('logOutForm').submit();
+    })
+  </script>
+</a>
+
+</html>
