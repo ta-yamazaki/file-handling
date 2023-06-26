@@ -76,21 +76,34 @@ public class XlsxReport extends AbstractXlsxView {
     }
 
     private CellStyle headerCellStyle() {
-        // 日本語での列幅の自動調整のため、フォントを明示的に指定する。
         CellStyle cellStyle = this.workbook.createCellStyle();
+
+        // 日本語での列幅の自動調整のため、フォントを明示的に指定する。
         Font font = this.workbook.createFont();
         font.setFontName("游ゴシック");
         font.setBold(true);
         cellStyle.setFont(font);
+
+        cellStyle.setBorderLeft(BorderStyle.THIN); //左の枠線
+        cellStyle.setBorderRight(BorderStyle.THIN); //右の枠線
+        cellStyle.setBorderTop(BorderStyle.THIN); //上の枠線
+        cellStyle.setBorderBottom(BorderStyle.THICK); //下の枠線
+
         return cellStyle;
     }
 
     private CellStyle bodyCellStyle() {
-        // 日本語での列幅の自動調整のため、フォントを明示的に指定する。
         CellStyle cellStyle = this.workbook.createCellStyle();
+
+        // 日本語での列幅の自動調整のため、フォントを明示的に指定する。
         Font font = this.workbook.createFont();
         font.setFontName("游ゴシック");
         cellStyle.setFont(font);
+
+        cellStyle.setBorderLeft(BorderStyle.THIN); //左の枠線
+        cellStyle.setBorderRight(BorderStyle.THIN); //右の枠線
+        cellStyle.setBorderBottom(BorderStyle.THIN); //下の枠線
+
         return cellStyle;
     }
 
