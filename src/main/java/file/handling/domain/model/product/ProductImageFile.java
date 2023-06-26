@@ -31,4 +31,8 @@ public class ProductImageFile {
     public void transferTo(Path savePath) throws IOException {
         imageFile.transferTo(savePath);
     }
+
+    public boolean isEmpty() {
+        return imageFile.isEmpty();
+    }
 }
