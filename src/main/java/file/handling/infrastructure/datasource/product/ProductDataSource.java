@@ -1,6 +1,7 @@
 package file.handling.infrastructure.datasource.product;
 
 import file.handling.application.service.product.ProductRepository;
+import file.handling.domain.model.product.ImageFileMetadata;
 import file.handling.domain.model.product.Product;
 import file.handling.domain.model.product.ProductId;
 import file.handling.domain.model.product.Products;
@@ -26,9 +27,20 @@ public class ProductDataSource implements ProductRepository {
     }
 
     @Override
-    public void register(Product product) {
+    public ImageFileMetadata fileMetadataOf(String filename) {
+        return productMapper.fileMetadataOf(filename);
+    }
+
+    @Override
+    public boolean productExistsOf(String filename) {
+        return productMapper.productExistsOf(filename);
+    }
+
+    @Override
+    public void register(Product product, ImageFileMetadata fileMetadata) {
         ProductId productId = ProductId.newOne();
         productMapper.registerNew(productId, product);
+        productMapper.registerFileMetadata(productId, fileMetadata);
     }
 
     @Override

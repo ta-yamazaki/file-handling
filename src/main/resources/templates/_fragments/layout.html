@@ -29,15 +29,22 @@
   </div>
 </nav>
 
+<div th:if="${message}" th:fragment="message"
+     class="alert alert-success" role="alert">
+  <span class="message-body" th:utext="${message}"></span>
+</div>
+
 <div th:if="${errorMessage}" th:fragment="errorMessage"
      class="alert alert-danger" role="alert">
   <span class="message-body" th:utext="${errorMessage}"></span>
 </div>
 
-<div th:if="${message}" th:fragment="message"
-     class="alert alert-success" role="alert">
-  <span class="message-body" th:utext="${message}"></span>
-</div>
+<th:block th:if="${errorMessages}" th:fragment="errorMessages">
+  <div class="alert alert-danger" role="alert"
+       th:each="errorMessage : ${errorMessages}">
+    <span class="message-body" th:utext="${errorMessage}"></span>
+  </div>
+</th:block>
 
 <article id="message" class="message is-info">
   <div class="message-header">

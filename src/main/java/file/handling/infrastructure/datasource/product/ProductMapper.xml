@@ -23,6 +23,27 @@
         WHERE 商品.商品ID = #{productId.value}
     </select>
 
+    <select id="fileMetadataOf" resultType="file.handling.domain.model.product.ImageFileMetadata">
+        SELECT
+            ファイル名 AS "filename",
+            ファイルサイズ AS "size",
+            最終アクセス日時 AS "lastAccessTime",
+            最終更新日時 AS "lastModifiedTime",
+            作成日時 AS "creationTime",
+            所有者 AS "fileOwner",
+            ハッシュ値 AS "hash"
+        FROM 商品.画像ファイルメタデータ
+        WHERE 画像ファイルメタデータ.ファイル名 = #{filename}
+    </select>
+
+    <select id="productExistsOf" resultType="java.lang.Boolean">
+        SELECT EXISTS(
+                       SELECT 商品ID
+                       FROM  商品.商品
+                       WHERE 商品.画像パス = #{filename}
+                   )
+    </select>
+
     <insert id="registerNew">
         INSERT INTO 商品.商品
             (商品ID, 商品名称, 画像パス)
@@ -31,6 +52,22 @@
                 #{productId.value},
                 #{product.name},
                 #{product.fileName}
+            )
+    </insert>
+
+    <insert id="registerFileMetadata">
+        INSERT INTO 商品.画像ファイルメタデータ
+            (商品ID, ファイル名, ファイルサイズ, 最終アクセス日時, 最終更新日時, 作成日時, 所有者, ハッシュ値)
+        VALUES
+            (
+                #{productId.value},
+                #{metadata.filename},
+                #{metadata.size},
+                #{metadata.lastAccessTime},
+                #{metadata.lastModifiedTime},
+                #{metadata.creationTime},
+                #{metadata.fileOwner},
+                #{metadata.hash}
             )
     </insert>
 

@@ -30,9 +30,7 @@ public class CustomErrorController implements ErrorController {
     }
 
     @GetMapping
-    public String errors(
-            HttpServletRequest servletRequest,
-            Model model) {
+    public String errors(HttpServletRequest servletRequest, Model model) {
         ServletWebRequest webRequest = new ServletWebRequest(servletRequest);
         Map<String, Object> map = errorAttributes.getErrorAttributes(webRequest, ErrorAttributeOptions.defaults());
 

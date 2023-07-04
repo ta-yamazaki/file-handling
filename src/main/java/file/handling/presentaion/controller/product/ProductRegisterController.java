@@ -4,14 +4,17 @@ import file.handling.application.service.product.ProductService;
 import file.handling.domain.model.product.Product;
 import file.handling.domain.model.product.ProductId;
 import file.handling.domain.model.product.ProductImageFile;
-import file.handling.domain.model.product.Products;
-import org.springframework.http.MediaType;
+import file.handling.presentaion._error.Errors;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 @Controller
 @RequestMapping("products")
@@ -46,11 +49,22 @@ class ProductRegisterController {
 
     @PostMapping("/add")
     String register(@ModelAttribute("product") Product product,
-                    @ModelAttribute("imageFile") ProductImageFile imageFile,
+                    @Validated @ModelAttribute("imageFile") ProductImageFile imageFile,
+                    BindingResult result,
                     Model model,
-                    RedirectAttributes redirectAttributes) {
-        productService.register(product, imageFile);
+                    RedirectAttributes redirectAttributes) throws IOException, NoSuchAlgorithmException {
         model.addAttribute("product", product);
+
+        if (result.hasErrors()) {
+            Errors errors = new Errors();
+            result.getAllErrors().forEach(objectError ->
+                    errors.addLine(objectError.getDefaultMessage())
+            );
+            model.addAttribute("errorMessages", errors.message());
+            return "product/add";
+        }
+
+        productService.register(product, imageFile);
         redirectAttributes.addFlashAttribute("message", "商品情報を登録しました。");
         return "redirect:/products";
     }

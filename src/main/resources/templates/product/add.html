@@ -14,6 +14,7 @@
 <div th:replace="_fragments/layout :: header"></div>
 
 <div class="container">
+  <div th:replace="_fragments/layout :: errorMessages">エラーメッセージ</div>
   <div th:replace="_fragments/layout :: errorMessage">エラーメッセージ</div>
   <div th:replace="_fragments/layout :: message">処理完了メッセージ</div>
 
@@ -27,12 +28,12 @@
     <div class="mb-3">
       <label class="form-label">商品名</label>
       <input type="text" class="form-control"
-             autocomplete="off" required
+             autocomplete="off"
              th:field="*{name}">
     </div>
     <div class="mb-3">
       <label for="imageFile" class="form-label">商品画像のアップロード</label>
-      <input class="form-control dropify" type="file" name="imageFile" id="imageFile" accept="image/*" required>
+      <input class="form-control dropify" type="file" name="imageFile" id="imageFile">
     </div>
     <button type="submit" class="btn btn-primary">追加する</button>
   </form>

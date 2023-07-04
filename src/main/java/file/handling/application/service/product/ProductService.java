@@ -1,12 +1,18 @@
 package file.handling.application.service.product;
 
-import file.handling.domain.model.product.Product;
-import file.handling.domain.model.product.ProductId;
-import file.handling.domain.model.product.ProductImageFile;
-import file.handling.domain.model.product.Products;
+import file.handling.domain.model.product.*;
 import file.handling.infrastructure.transfer.ProductImageTransfer;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.UserPrincipal;
+import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
+import java.util.Map;
 
 @Service
 public class ProductService {
@@ -27,9 +33,10 @@ public class ProductService {
         return productRepository.productOf(productId);
     }
 
-    public void register(Product product, ProductImageFile imageFile) {
+    public void register(Product product, ProductImageFile imageFile) throws IOException, NoSuchAlgorithmException {
         Product withFileName = product.widthFileName(imageFile);
-        productRepository.register(withFileName);
+        ImageFileMetadata fileMetadata = imageFile.getMetadata();
+        productRepository.register(withFileName, fileMetadata);
         productImageTransfer.uploadImage(imageFile);
     }
 
