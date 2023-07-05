@@ -7,13 +7,15 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Map;
 
 public class ImageFileMetadata {
     String filename;
-    int size;
+    long size;
     LocalDateTime lastAccessTime;
     LocalDateTime lastModifiedTime;
     LocalDateTime creationTime;
@@ -24,12 +26,12 @@ public class ImageFileMetadata {
     public ImageFileMetadata() {
     }
 
-    public ImageFileMetadata(String filename, int size, LocalDateTime lastAccessTime, LocalDateTime lastModifiedTime, LocalDateTime creationTime, String fileOwner, String hash) {
+    public ImageFileMetadata(String filename, long size, FileTime lastAccessTime, FileTime lastModifiedTime, FileTime creationTime, String fileOwner, String hash) {
         this.filename = filename;
         this.size = size;
-        this.lastAccessTime = lastAccessTime;
-        this.lastModifiedTime = lastModifiedTime;
-        this.creationTime = creationTime;
+        this.lastAccessTime = LocalDateTime.ofInstant(lastAccessTime.toInstant(), ZoneId.systemDefault());
+        this.lastModifiedTime = LocalDateTime.ofInstant(lastModifiedTime.toInstant(), ZoneId.systemDefault());
+        this.creationTime = LocalDateTime.ofInstant(creationTime.toInstant(), ZoneId.systemDefault());
         this.fileOwner = fileOwner;
         this.hash = hash;
     }
@@ -41,10 +43,10 @@ public class ImageFileMetadata {
 
         ImageFileMetadata fileMetadata = new ImageFileMetadata(
                 file.getOriginalFilename(),
-                (int) attributes.get("size"),
-                (LocalDateTime) attributes.get("lastAccessTime"),
-                (LocalDateTime) attributes.get("lastModifiedTime"),
-                (LocalDateTime) attributes.get("creationTime"),
+                (long) attributes.get("size"),
+                (FileTime) attributes.get("lastAccessTime"),
+                (FileTime) attributes.get("lastModifiedTime"),
+                (FileTime) attributes.get("creationTime"),
                 Files.getOwner(path).getName(),
                 FileHash.getfileHash(path)
         );
@@ -52,7 +54,7 @@ public class ImageFileMetadata {
         return fileMetadata;
     }
 
-    public int size() {
+    public long size() {
         return size;
     }
 

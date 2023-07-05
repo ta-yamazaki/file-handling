@@ -8,6 +8,7 @@
             商品ID AS "productId.value",
             商品番号 AS "number",
             商品名称 AS "name",
+            商品価格 AS "price",
             画像パス AS "fileName"
         FROM 商品.商品
         ORDER BY 商品番号
@@ -18,6 +19,7 @@
             商品ID AS "productId.value",
             商品番号 AS "number",
             商品名称 AS "name",
+            商品価格 AS "price",
             画像パス AS "fileName"
         FROM 商品.商品
         WHERE 商品.商品ID = #{productId.value}
@@ -46,11 +48,12 @@
 
     <insert id="registerNew">
         INSERT INTO 商品.商品
-            (商品ID, 商品名称, 画像パス)
+            (商品ID, 商品名称, 商品価格, 画像パス)
         VALUES
             (
                 #{productId.value},
                 #{product.name},
+                #{product.price},
                 #{product.fileName}
             )
     </insert>
@@ -73,12 +76,13 @@
 
     <insert id="register">
         INSERT INTO 商品.商品
-            (商品ID, 商品番号, 商品名称, 画像パス)
+            (商品ID, 商品番号, 商品名称, 商品価格, 画像パス)
         VALUES
             (
                 #{productId.value},
                 #{product.number},
                 #{product.name},
+                #{product.price},
                 #{product.fileName}
             )
     </insert>

@@ -1,7 +1,5 @@
 package file.handling.domain.model.product;
 
-import org.springframework.web.multipart.MultipartFile;
-
 /**
  * 商品
  */
@@ -11,17 +9,29 @@ public class Product {
 
     String number;
     String name;
+    int price;
 
     String fileName;
 
     public Product() {
     }
 
-    public Product(ProductId productId, String number, String name, String fileName) {
+    public Product(ProductId productId, String number, String name, int price, String fileName) {
         this.productId = productId;
         this.number = number;
         this.name = name;
+        this.price = price;
         this.fileName = fileName;
+    }
+
+    public Product widthNewId() {
+        return new Product(
+                ProductId.newOne(),
+                number,
+                name,
+                price,
+                fileName
+        );
     }
 
     public Product widthFileName(ProductImageFile imageFile) {
@@ -29,6 +39,7 @@ public class Product {
                 productId,
                 number,
                 name,
+                price,
                 imageFile.getOriginalFilename()
         );
     }
@@ -57,6 +68,10 @@ public class Product {
 
     public String name() {
         return name;
+    }
+
+    public String priceAsString() {
+        return String.format("%,d円", price);
     }
 
     public String fileName() {

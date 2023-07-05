@@ -8,9 +8,11 @@
   <title>エラー</title>
 </head>
 <body>
+<div th:replace="_fragments/layout :: header"></div>
+
 <div class="container">
   <header>
-    <h5 class="title is-5">例外が発生</h5>
+    <h5 class="title is-5">エラーが発生しました。</h5>
   </header>
   <p>
     <th:block th:each="line : ${errors.message()}">
@@ -18,6 +20,7 @@
       <br>
     </th:block>
   </p>
+  <a class="navbar-item" type="button" onclick="history.back()">前に戻る</a>
   <a class="navbar-item" th:href="@{/}">トップに戻る</a>
 </div>
 </body>

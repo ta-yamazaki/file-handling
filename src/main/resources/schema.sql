@@ -6,6 +6,7 @@ CREATE TABLE 商品.商品
     商品ID UUID PRIMARY KEY,
     商品番号 SERIAL NOT NULL,
     商品名称 VARCHAR(40) NOT NULL,
+    商品価格 int NOT NULL,
     画像パス VARCHAR(1024) NOT NULL -- S3のキー名は最大1024バイト(バイト数で制限できる型は無い？)
 );
 

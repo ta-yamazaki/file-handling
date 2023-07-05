@@ -5,15 +5,19 @@ import file.handling.domain.model.product.Product;
 import file.handling.domain.model.product.ProductId;
 import file.handling.domain.model.product.ProductImageFile;
 import file.handling.presentaion._error.Errors;
+import jakarta.annotation.security.RolesAllowed;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.nio.file.attribute.UserPrincipal;
 import java.security.NoSuchAlgorithmException;
 
 @Controller
@@ -32,6 +36,7 @@ class ProductRegisterController {
 //                "productId.value",
                 "number",
                 "name",
+                "price",
                 "fileName"
         );
     }

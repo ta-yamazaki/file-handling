@@ -24,6 +24,7 @@
 
   <br>
   <a th:href="@{/products/add}" type="button" class="btn btn-primary">商品を追加する</a>
+  <a th:href="@{/file-upload/products}" type="button" class="btn btn-outline-primary">商品を一括で追加する</a>
   <br>
   <br>
   <h4>商品一覧</h4>
@@ -38,21 +39,23 @@
       <th style="width: 3rem">#</th>
       <th style="width: 140px">商品画像</th>
       <th>商品名</th>
+      <th>商品価格</th>
     </tr>
     </thead>
     <tbody>
 
     <tr th:each="product : ${products.list()}">
-        <td th:text="${product.number()}">1</td>
-        <td>
-          <img th:src="@{__${product.imagePath()}__}"
-               class="rounded"
-               th:alt="${product.name()}">
-        </td>
-        <td>
-          <a th:href="@{/products/__${product.idAsString()}__}"
-             th:text="${product.name()}">デジタルカメラ</a>
-        </td>
+      <td th:text="${product.number()}">1</td>
+      <td>
+        <img th:src="@{__${product.imagePath()}__}"
+             class="rounded"
+             th:alt="${product.name()}">
+      </td>
+      <td>
+        <a th:href="@{/products/__${product.idAsString()}__}"
+           th:text="${product.name()}">デジタルカメラ</a>
+      </td>
+      <td th:text="${product.priceAsString()}">2,000円</td>
     </tr>
     </tbody>
   </table>

@@ -22,6 +22,9 @@ public class DisallowedSameFileValidator implements ConstraintValidator<Disallow
     @Override
     public boolean isValid(MultipartFile multipartFile,
                            ConstraintValidatorContext context) {
+        boolean existsFilename = productRepository.productExistsOf(multipartFile.getOriginalFilename());
+        if (!existsFilename) return true;
+
         try {
             ImageFileMetadata targetMetadata = ImageFileMetadata.from(multipartFile);
             ImageFileMetadata metadata = productRepository.fileMetadataOf(multipartFile.getOriginalFilename());

@@ -41,6 +41,11 @@
                  th:field="*{name}">
         </div>
         <div class="mb-3">
+          <label class="form-label">商品価格</label>
+          <input type="number" class="form-control" required
+                 th:field="*{price}">
+        </div>
+        <div class="mb-3">
           <label for="imageFile" class="form-label">商品画像のアップロード</label>
           <input class="form-control dropify" type="file" name="imageFile" id="imageFile" accept="image/*" required>
         </div>
