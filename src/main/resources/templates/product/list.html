@@ -16,23 +16,20 @@
 <body>
 <!--<header th:replace="~{_parts/header :: main('メニュー')}"></header>-->
 
-<div th:replace="_fragments/layout :: header"></div>
+<div th:replace="~{_fragments/layout :: header}"></div>
 
 <div class="container">
-  <div th:replace="_fragments/layout :: errorMessage">エラーメッセージ</div>
-  <div th:replace="_fragments/layout :: message">処理完了メッセージ</div>
+  <div th:replace="~{_fragments/layout :: errorMessage}">エラーメッセージ</div>
+  <div th:replace="~{_fragments/layout :: message}">処理完了メッセージ</div>
 
-  <br>
   <a th:href="@{/products/add}" type="button" class="btn btn-primary">商品を追加する</a>
   <a th:href="@{/file-upload/products}" type="button" class="btn btn-outline-primary">商品を一括で追加する</a>
-  <br>
-  <br>
-  <h4>商品一覧</h4>
+  <a th:href="@{/file-scan}" type="button" class="btn btn-outline-danger float-end">ウイルススキャン</a>
 
-  <form th:action="@{/report}" method="get">
-    <input class="btn btn-outline-primary" type="submit" value="レポート出力" />
-  </form>
-
+  <h4 class="mt-5">
+    商品一覧
+    <a th:href="@{/report}" type="button" class="btn btn-outline-primary float-end">レポート出力</a>
+  </h4>
   <table class="table table-hover">
     <thead>
     <tr>

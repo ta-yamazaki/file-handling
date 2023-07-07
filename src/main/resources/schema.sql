@@ -19,6 +19,6 @@ CREATE TABLE 商品.画像ファイルメタデータ
     最終更新日時 TIMESTAMP NOT NULL,
     作成日時 TIMESTAMP NOT NULL,
     所有者 VARCHAR(100) NOT NULL,
-    ハッシュ値 VARCHAR(128) NOT NULL
+    ハッシュ値 VARCHAR(32) NOT NULL -- MD5 16バイト -> 16進数文字列
 );
 

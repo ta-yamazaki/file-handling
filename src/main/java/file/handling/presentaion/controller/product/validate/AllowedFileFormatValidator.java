@@ -21,21 +21,16 @@ public class AllowedFileFormatValidator implements ConstraintValidator<AllowedFi
                            ConstraintValidatorContext context) {
         try {
             char[] fileHexChars = Hex.encodeHex(multipartFile.getBytes(), false);
-            System.out.println("#### fileHexChars");
-            System.out.println(fileHexChars);
 
             for (String formatString : allowedFileFormats) {
                 FileFormatType format = FileFormatType.of(formatString);
-                System.out.println(format.sameHeadHexChars(fileHexChars));
                 if (format.sameHeadHexChars(fileHexChars)) return true;
             }
 
             return false;
         } catch (IOException e) {
-            System.out.println("#### IOException");
             throw new RuntimeException(e);
         } catch (IllegalArgumentException e) {
-            System.out.println("#### IllegalArgumentException");
             return false;
         }
     }

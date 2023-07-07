@@ -10,11 +10,11 @@
 
 <body>
 <!--<header th:replace="~{_parts/header :: main('メニュー')}"></header>-->
-<div th:replace="_fragments/layout :: header"></div>
+<div th:replace="~{_fragments/layout :: header}"></div>
 
 <div class="container">
-  <div th:replace="_fragments/layout :: errorMessage">エラーメッセージ</div>
-  <div th:replace="_fragments/layout :: message">処理完了メッセージ</div>
+  <div th:replace="~{_fragments/layout :: errorMessage}">エラーメッセージ</div>
+  <div th:replace="~{_fragments/layout :: message}">処理完了メッセージ</div>
 
   <br>
   <a th:href="@{/}">< 一覧へ戻る</a>

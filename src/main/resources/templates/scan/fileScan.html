@@ -9,42 +9,40 @@
 </head>
 
 <body>
-<!--<header th:replace="~{_parts/header :: main('メニュー')}"></header>-->
 
 <div th:replace="~{_fragments/layout :: header}"></div>
 
 <div class="container">
-  <div th:replace="~{_fragments/layout :: errorMessages}">エラーメッセージ</div>
-  <div th:replace="~{_fragments/layout :: errorMessage}">エラーメッセージ</div>
   <div th:replace="~{_fragments/layout :: message}">処理完了メッセージ</div>
+  <div th:replace="~{_fragments/layout :: errorMessage}">エラーメッセージ</div>
+  <div th:replace="~{_fragments/layout :: errorMessages}">エラーメッセージ</div>
 
   <br>
   <a th:href="@{/}">< 一覧へ戻る</a>
   <br>
   <br>
-  <h4>商品一括登録</h4>
+  <h4>ウイルススキャン</h4>
   <br>
   <div class="container">
-    <div class="row align-items-start">
-      <div class="col">
-        <form method="post" th:object="${uploadFile}" th:action="@{/file-upload/products}" enctype="multipart/form-data">
-          <div class="mb-3">
-            <label class="form-label">商品情報CSVファイル</label>
-            <input class="form-control dropify" type="file" th:field="*{excelFile}">
-          </div>
-          <button type="submit" class="btn btn-primary">追加する</button>
-        </form>
+    <form method="post" th:object="${uploadFileScan}" th:action="@{/file-scan/scan}" enctype="multipart/form-data">
+      <div class="mb-3">
+        <input class="form-control dropify" type="file" th:field="*{file}">
       </div>
-      <div class="col">
-        <form method="post" th:object="${uploadFileAdmin}" th:action="@{/file-upload/products/admin}" enctype="multipart/form-data">
-          <div class="mb-3">
-            <label class="form-label">商品情報CSVファイル（管理者権限）</label>
-            <input class="form-control dropify" type="file" th:field="*{excelFile}">
-          </div>
-          <button type="submit" class="btn btn-success">追加する</button>
-        </form>
+      <button type="submit" class="btn btn-warning">ウイルススキャンを実施する</button>
+    </form>
+    <div th:if="${scanResult}" class="card border-danger mb-3 mt-4" style="width: 50%;">
+      <div class="card-header">ウイルススキャン結果</div>
+      <div class="card-body text-danger">
+        <h5 class="card-title" th:text="${scanResult.status()}"></h5>
+        <h5 class="card-title" th:text="${scanResult.statusMessage()}"></h5>
+        <p class="card-text" th:text="${scanResult.resultMessage()}"></p>
+        <p class="card-text" th:text="${scanResult.signature()}"></p>
       </div>
     </div>
+    <br>
+    <form method="post" th:action="@{/file-scan/discoverVirus}">
+      <button type="submit" class="btn btn-danger">ウイルスを検知してみる（EICARテキスト）</button>
+    </form>
   </div>
 </div>
 

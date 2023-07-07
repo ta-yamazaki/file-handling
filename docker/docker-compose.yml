@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+#  workspace:
+#    build: workspace
+#    command: sleep infinity
+#    volumes:
+#      - ../:/var/www/
+#    environment:
+#      - LANGUAGE=en_US.UTF-8
+#      - LC_ALL=en_US.UTF-8
+#    ports:
+#      - "8888:8888"
+#
+  clamav:
+    image: dinkel/clamavd
+    ports:
+      - "3310:3310"

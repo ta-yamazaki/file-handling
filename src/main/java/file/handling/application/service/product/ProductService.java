@@ -1,7 +1,7 @@
 package file.handling.application.service.product;
 
 import file.handling.domain.model.product.*;
-import file.handling.infrastructure.transfer.ProductImageTransfer;
+import file.handling.infrastructure.transfer.ProductImageHandler;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -11,11 +11,11 @@ import java.security.NoSuchAlgorithmException;
 public class ProductService {
 
     ProductRepository productRepository;
-    ProductImageTransfer productImageTransfer;
+    ProductImageHandler productImageHandler;
 
-    public ProductService(ProductRepository productRepository, ProductImageTransfer productImageTransfer) {
+    public ProductService(ProductRepository productRepository, ProductImageHandler productImageHandler) {
         this.productRepository = productRepository;
-        this.productImageTransfer = productImageTransfer;
+        this.productImageHandler = productImageHandler;
     }
 
     public Products list() {
@@ -31,13 +31,13 @@ public class ProductService {
         Product withFileName = widthId.widthFileName(imageFile);
         ImageFileMetadata fileMetadata = imageFile.getMetadata();
         productRepository.register(withFileName, fileMetadata);
-        productImageTransfer.uploadImage(imageFile);
+        productImageHandler.uploadImage(imageFile);
     }
 
     public void update(ProductId productId, Product product, ProductImageFile imageFile) {
         Product withFileName = product.widthFileName(imageFile);
         productRepository.update(productId, withFileName);
-        productImageTransfer.uploadImage(imageFile);
+        productImageHandler.uploadImage(imageFile);
     }
 
     public void bulkRegister(ProductExcelFile file) throws IOException {
